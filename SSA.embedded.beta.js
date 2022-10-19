@@ -11,7 +11,7 @@ function SSA(opts) {
 			$.log(`🚧 ${$.name}, parse SSA`, "");
 			/***************** v0.7.0-beta *****************/
 			const SSA_Regex = /^(?<TYPE>.+): (?<OPTION>.+)?$/;
-			let json = ssa.replace(/\r\n/g, "\n").split(/[\r\n]+#/).map(v => v.match(SSA_Regex)?.groups ?? v)
+			let json = ssa.replace(/\r\n/g, "\n").split(/[^][^]/).map(v => v.match(SSA_Regex)?.groups ?? v)
 			$.log(`🚧 ${$.name}, parse SSA`, `json: ${JSON.stringify(json)}`, "");
 			json = json.map(item => {
 				$.log(`🚧 ${$.name}, parse SSA`, `before: item.OPTION.split(/,(?=[A-Z])/) ${JSON.stringify(item.OPTION?.split(/,(?=[A-Z])/) ?? "")}`, "");
@@ -24,7 +24,7 @@ function SSA(opts) {
 
 		stringify(json = new Array) {
 			$.log(`🚧 ${$.name}, stringify SSA`, "");
-			//if (!json?.[0]?.includes("#EXTM3U")) json.unshift("#EXTM3U")
+			if (!json?.[0]?.includes("[Script Info]")) json.unshift("[Script Info]")
 			let ssa = json.map(item => {
 				if (typeof item?.OPTION == "object") item.OPTION = Object.entries(item.OPTION).map(item => item = item.join("=")).join(",");
 				/***************** v0.7.0-beta *****************/
