@@ -12,10 +12,12 @@ function SSA(opts) {
 			/***************** v0.1.0-beta *****************/
 			let part1 = ssa.replace(/\r\n/g, "\n").split(/[^][^]/);
 			$.log(`🚧 ${$.name}, parse SSA`, `part1: ${JSON.stringify(part1)}`, "");
-			let part2 = part1.map(v => Object.fromEntries(v.split(/\[(.+)\]/)));
+			let part2 = part1.map(v => v.split(/[^]/));
 			$.log(`🚧 ${$.name}, parse SSA`, `part2: ${JSON.stringify(part2)}`, "");
-			let part3 = part2.map(v => Object.fromEntries(v.split(": ")).split(","));
+			let part3 = part2.map(v => Object.fromEntries(v.split(/\[(.+)\]/)));
 			$.log(`🚧 ${$.name}, parse SSA`, `part3: ${JSON.stringify(part3)}`, "");
+			let part4 = part4.map(v => Object.fromEntries(v.split(": ")).split(","));
+			$.log(`🚧 ${$.name}, parse SSA`, `part4: ${JSON.stringify(part4)}`, "");
 			json = json.map(item => {
 				$.log(`🚧 ${$.name}, parse SSA`, `before: item.OPTION.split(/,(?=[A-Z])/) ${JSON.stringify(item.OPTION?.split(/,(?=[A-Z])/) ?? "")}`, "");
 				if (/=/.test(item?.OPTION) && this.opts.includes(item.TYPE)) item.OPTION = Object.fromEntries(item.OPTION.split(/,(?=[A-Z])/).map(item => item.split(/=(.*)/)));
